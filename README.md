@@ -104,14 +104,11 @@ steps 35-49. It is an initial frozen baseline, not the full adaptation experimen
 
 ## Author and contact
 
-Author / maintainer: **alexchooys** (GitHub handle).
-Contact: https://github.com/alexchooys . Add your preferred name or email if desired.
+Author / maintainer: **alexchooys**.
+Contact: https://github.com/alexchooys . 
+Email: ychoo@ufl.edu
 
-## References and AI assistance
+## References
 
 Weber et al. (2019), https://arxiv.org/abs/1908.02591 .
 PyG GraphSAGE: https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.SAGEConv.html .
-
-AI assistance was used to develop this design, draft documentation, and generate
-initial code. The student must review the design, execute the real-data workflow,
-verify results, and disclose assistance according to course requirements.
