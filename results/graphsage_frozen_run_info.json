@@ -1,0 +1,28 @@
+{
+  "model": "GraphSAGE",
+  "policy": "frozen",
+  "seed": 0,
+  "selected_epoch": 73,
+  "epochs_executed": 98,
+  "validation_AP": 0.8163647254592278,
+  "threshold": 0.85,
+  "training_with_validation_seconds": 2.1133056629996645,
+  "trainable_parameters": 20289,
+  "positive_class_weight": 8.107989167230873,
+  "training_steps": [
+    1,
+    30
+  ],
+  "validation_steps": [
+    31,
+    34
+  ],
+  "testing_steps": [
+    35,
+    49
+  ],
+  "edge_direction": "incoming_original_directed",
+  "gpu": "Tesla T4",
+  "torch_version": "2.14.1+cu130",
+  "pyg_version": "2.8.1"
+}

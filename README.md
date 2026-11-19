@@ -1,126 +1,157 @@
-# AML Temporal Robustness Lab
+# AML Temporal Robustness Lab — Deliverable 2
 
-Deliverable 1.2: foundation and design blueprint for a semester project on anti-money-laundering (AML) classification under distribution shift, using the Elliptic Bitcoin transaction graph.
+A working early prototype comparing **XGBoost, MLP and GraphSAGE** under
+frozen, expanding-history, rolling-window and recency-weighted policies on
+original Elliptic Bitcoin transaction snapshots. The interface supports
+saved-experiment inspection and **live frozen-XGBoost inference**.
 
-**Research question:** Are graph models more or less robust than tabular and non-graph neural models after the Elliptic step-43 shift, and which model family benefits most from recent-data adaptation?
+Author: **Alex (GitHub: alexchooys)**, University of Florida, Applied Data Science.
+Contact: https://github.com/alexchooys
 
-- **Core models:** XGBoost, MLP (non-graph neural control), GraphSAGE.
-- **Core adaptation policies:** frozen, expanding-history retraining, rolling-window retraining, recency-weighted retraining.
-- **Scope note:** This is a planned empirical comparison, not a claim of new algorithmic research. Predictions are retrospective classifications of transactions associated with licit or illicit entities. They are not legal findings or production compliance decisions.
+## What is actually complete
 
-## Current status (read before using results)
+- The executed Colab training notebook loads real Elliptic data, fits all three
+  model families and runs all 12 model-policy combinations for seed 0.
+- Real outputs: 180 model-policy-time rows and 200,040 saved prediction rows.
+  All saved AP/precision/recall/F1/review-budget metrics were independently
+  recomputed from predictions and match (docs/audit.json).
+- FastAPI web interface (an equivalent Python web framework to Flask) with
+  model/policy/snapshot/budget controls, temporal chart and ranked queue.
+- Live inference loads the frozen XGBoost artifact, accepting 93 feature values.
+  Native XGBoost is used when installed. A restricted numeric-tree evaluator
+  supports lightweight use; parity on 50 real feature rows is verified.
+- Interface backend and HTTP tests pass, including all 180 explorer selections,
+  low-support warnings, input rejection and a clearly labeled synthetic live probe.
 
-<!-- UPDATE THIS SECTION after running the real-data notebook. Delete lines that no longer apply. -->
+### Verified interface evidence
 
-| Item | Status |
-|---|---|
-| CSV validator, temporal counts, metric helpers, policy helpers, `setup.ipynb` | Implemented |
-| Sample (fabricated) fixtures and their setup cells | Executed; for parser testing only, never evidence |
-| Real Elliptic data setup (`DATA_MODE = "real"`) | **[TODO: executed on YYYY-MM-DD / not yet executed]** |
-| Validation labels, steps 31-34 | **[TODO: N illicit / M licit, from your real run]** |
-| Initial frozen XGBoost baseline on real data | **[TODO: run / not yet run]** |
-| MLP and GraphSAGE | Architectures defined; training not yet verified locally |
-| Streamlit prototype | EDA only; trained-model integration is planned |
+- `notebooks/ui_demo_executed.ipynb` preserves the successful Colab run.
+- `docs/interface_explorer.png` and `docs/interface_live_real.png` show the actual browser interface.
+- Fifty real test rows pass native-versus-saved and portable-versus-native inference checks.
+  Maximum differences are 2.935e-08 and 5.974e-08 (tolerance 1e-5).
+- A real input produces native XGBoost score 0.02013587, below threshold 0.70.
+  Details and the real example are in `docs/interface_verification.json`.
 
-No trained AML findings are claimed in this repository. Results in `results/sample/` come from fabricated fixtures. Real outputs are written to `results/real/` only after local execution.
+Update your GitHub repository and submit its actual URL; this ZIP is not
+itself a GitHub repository link. Compile `docs/Main_IEEEtran.tex` in Overleaf
+for the official IEEE conference template. The included compiled PDF uses
+an IEEE-style two-column layout.
 
-## Installation (macOS / Linux, Python 3.11 recommended)
+## Quick start: interface (no raw dataset or GPU required)
 
-From the project root:
+Python 3.11-3.13 recommended. From this folder:
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
-python -m ipykernel install --user --name aml-gnn --display-name "Python (aml-gnn)"
+python -m uvicorn ui.app:app --host 127.0.0.1 --port 8000
 ```
 
-- **Windows PowerShell:** activate with `.venv\Scripts\Activate.ps1`.
-- **If PyTorch Geometric fails to install:** install PyTorch first using the [official selector](https://pytorch.org/get-started/locally/), then follow the [PyG installation guide](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html), then rerun the requirements install.
-- **GPU:** optional. CPU is enough for setup and a small smoke test. Measure memory and runtime before scaling.
+On Windows, activate with `.venv\Scripts\Activate.ps1`.
+Open http://127.0.0.1:8000 . The default Explorer selection is
+XGBoost / recency / step 49 / 10% labeled review budget.
 
-## Dataset and access
+For the native prediction engine, also install `xgboost>=3,<4`.
+The zero-vector button is a synthetic software probe, **not an Elliptic
+transaction or detection-performance evidence**. Real inputs must be the
+93 original local numeric attributes in local_00..local_92 order, excluding
+ID, time step, labels and the 72 aggregate attributes. Do not apply the
+neural scaler before submitting values to the tree model. Scores are not
+calibrated probabilities.
 
-- **Source:** [Elliptic Data Set on Kaggle](https://www.kaggle.com/datasets/ellipticco/elliptic-data-set) (a Kaggle account may be required).
-- **Download:** manually from Kaggle, or with the Kaggle CLI after configuring your own credentials:
-  ```bash
-  kaggle datasets download -d ellipticco/elliptic-data-set -p data/raw --unzip
-  ```
-- **Place the three CSVs in `data/raw/`** (see `data/raw/README` for expected filenames): the headerless features file, the classes file, and the edge list.
-- **Do not commit credentials or the raw data.** `data/raw/` is ignored by Git.
-- **Published dataset values (not locally observed):** 203,769 transaction nodes, 234,355 directed edges, 49 time steps; 4,545 illicit / 42,019 licit / 157,205 unknown labels (these sum to the node total).
-- **Labels** describe entity-associated transactions, not legal findings. Features are mostly anonymized, which limits explanation and subgroup fairness analysis. Do not attempt re-identification. Respect the publisher's terms before redistributing data.
+## Colab interface: recommended for your current workflow
 
-## How to run
+Open `notebooks/ui_demo.ipynb` in Colab. It installs the lightweight server,
+asks for this project ZIP, verifies a replay/live probe, optionally checks
+native parity against original feature rows, and displays the app in a
+Colab port-proxy iframe. No public sharing tunnel is required.
+The completed run is preserved separately as `ui_demo_executed.ipynb`.
+See `docs/NEXT_STEPS.md` for final submission instructions.
 
-### 1. Smoke test (no download needed)
+## Training and evaluation reproduction
+
+1. Original dataset: https://www.kaggle.com/datasets/ellipticco/elliptic-data-set
+2. Extract `elliptic_txs_features.csv`, `elliptic_txs_classes.csv`,
+   `elliptic_txs_edgelist.csv` into your Drive data folder or `data/raw/`.
+   Respect the publisher's reuse terms. No raw data is redistributed.
+3. Install `requirements-train.txt`, selecting a compatible CUDA PyTorch
+   build for GPU training. Recorded environment: Python 3.13.16,
+   PyTorch 2.14.1+cu130, PyG 2.8.1, XGBoost 3.4.1, Tesla T4.
+   These are observed versions, not a claim that all systems can install them.
+4. Run `notebooks/AML_GNN_Real_Data_Setup.ipynb` in Colab. This is the exact
+   executed notebook. Adjust its PROJECT_DIR cell if your Drive path differs;
+   it creates its result directory. Its original runtime was already configured
+   for PyG; a fresh runtime must install the dependencies first.
+5. For one modular frozen-model reproduction:
 
 ```bash
-jupyter lab setup.ipynb
+python -m src.train --family XGBoost --data-dir data/raw --output-dir results_reproduced --device cuda
+# Or --family MLP / GraphSAGE. Use a different output directory per repeated run.
 ```
 
-Select the **Python (aml-gnn)** kernel and Run All. The notebook defaults to `DATA_MODE = "sample"`, an explicitly fabricated parser fixture.
-**Expected:** all environment checks pass, schema and protocol checks print, and a per-time-step label plot is produced. This only confirms your environment works.
+The modular CLI is extracted/refactored from the executed notebook and syntax
+checked; its full GPU training has not been rerun independently. Use the
+executed notebook as the reference for the complete adaptation study. The CLI
+and notebook may differ slightly numerically across hardware/library versions.
 
-### 2. Real-data check
-
-1. Place the original CSVs in `data/raw/`.
-2. In `setup.ipynb`, set `DATA_MODE = "real"`, restart the kernel, and Run All.
-3. Save the notebook **with outputs visible**.
-
-**Expected output of a successful real run:**
-- Loader totals of 203,769 nodes, 234,355 edges, and 49 time steps, with the label counts above.
-- The illicit and licit label counts for validation steps 31-34.
-- A per-time-step illicit-count plot.
-- All environment checks passing.
-
-If files are missing, the notebook raises an error. It never switches silently from real to sample data.
-
-### 3. Command-line pipeline
+## Evidence and audit
 
 ```bash
-python -m src.data --data-dir data/raw --output-dir results/real
-python -m src.baseline --data-dir data/raw --output-dir results/real
-python -m streamlit run ui/app.py
+python -m unittest discover -s tests -v
+python -m src.audit
 ```
 
-The baseline selects its threshold only on steps 31-34 and writes metrics for steps 35-49. It is an initial frozen baseline, not the full adaptation experiment.
+Tests cover backend/HTTP behavior, numeric branch arithmetic and all 180
+replay combinations. They are not a substitute for browser screenshots or
+native inference parity. `notebooks/interface_backend_verified.ipynb`
+contains actual executed backend output. `results/` preserves your uploaded
+experiment artifacts. `docs/` contains the report, source and evidence.
 
-## Planned evaluation (summary)
+## Early results (one seed only)
 
-- **Split:** train on steps 1-30, validate on 31-34, hold out 35-49. Step 43 is reported separately, with pre-event (35-42) and post-event (44-49) summaries.
-- **Inputs:** all core models use the same 93 local numerical features. Time step is metadata only. The 72 supplied neighborhood aggregates form a separate tree ablation.
-- **Leakage controls:** preprocessing, hyperparameters, and the threshold are frozen after validation. Each step is scored before its labels are used. Adaptive runs assume a simulated one-step label delay. Unknown labels are excluded from loss and metrics but can supply graph context within an available snapshot. No future snapshots or label features are used.
-- **Graph:** primary message passing follows incoming directed edges. Symmetrization is a secondary, retrospective ablation.
-- **Metrics:** average precision (AP, not trapezoidal PR-AUC), illicit precision/recall/F1, support counts, and labeled review-budget metrics.
-- **Policies:** frozen, expanding history, 8-step rolling window, and recency weighting with a 4-step half-life. These settings are fixed in advance and not tuned on post-shift test results.
-- **Non-claims:** no claim of operational savings or real-time compliance readiness.
+Mean AP across post-event steps 44-49:
 
-See `docs/` for the full technical blueprint.
+| Model | Frozen | Expanding | Rolling (8 steps) | Recency (half-life 4) |
+| --- | ---: | ---: | ---: | ---: |
+| XGBoost | 0.0789 | 0.1983 | 0.3164 | 0.4053 |
+| MLP | 0.0938 | 0.0684 | 0.1179 | 0.1203 |
+| GraphSAGE | 0.0716 | 0.0755 | 0.0881 | 0.0817 |
 
-## Workspace structure
+All 12 combinations have sustained F1 recovery **not observed by step 49**
+under the predeclared two-consecutive-step/support rule. XGBoost's strong
+final-step rebound does not qualify as two-step recovery. Adaptive GraphSAGE
+made 41/2/3 post-event alerts for expanding/rolling/recency; all were false
+positives at the validation-selected 0.85 threshold. Do not retune on test labels.
 
-```
-data/raw/          original CSVs, downloaded separately, ignored by Git
-data/sample/       small fabricated schema fixtures, clearly labeled
-setup.ipynb        setup, loader, counts, plots, protocol and environment checks
-notebooks/         later model and robustness notebooks
-src/               data, policies, metrics, initial models, baseline runner
-configs/           planned experiment configuration
-ui/                Streamlit EDA prototype; trained-inference integration planned
-results/sample/    executed fixture output; never empirical evidence
-results/real/      generated locally after real-data execution
-docs/              blueprint, diagrams, feedback mapping, GitHub guide, checklist
-```
+## Experimental boundaries and known issues
 
-## Author and contact
+- Train 1-30, validate 31-34, test 35-49. Step 43 is reported separately.
+- Validation contains 508 illicit and 2,481 licit nodes; step 32 contributes
+  342 of the 508 illicit labels. Threshold estimates depend strongly on this period.
+- Known-label targets only; unknown nodes remain in graph context, not negative targets.
+- Fit scaler/class weight on initial training only. One-step label delay is simulated.
+- Adaptive model refits use fixed 145/73 epochs for MLP/GraphSAGE, without test stopping.
+- Recency weights have mean one; positive weight remains 8.107989 across policies.
+- Primary predictors exclude time step and aggregate features. Incoming graph edges
+  are retrospective snapshot context; no real-time claim is made.
+- Metrics concern selected known labels, not the unknown population. Investigation
+  labels can encode blind spots. Seed variation is not a replacement for new time periods.
+- Saved prediction replay is available for every experiment. Live neural/graph
+  inference and saved adaptive model checkpoints are not yet integrated.
+- No automatic sanctions, legal determinations, or measured financial-savings claims.
 
-- **Author / maintainer:** Yuanseng Choo (GitHub: [alexchooys](https://github.com/alexchooys))
-- **Email:** ychoo@ufl.edu
-- **Course:** EEE6778, University of Florida
+## Next steps
 
-## References
+Commit the updated code, executed demo, screenshots, and report for Deliverable 2. Before
+Deliverable 3: seeds 1/2, per-seed validation selection, a label-delay sensitivity
+study and UI polish. Keep the predeclared window and half-life fixed; new
+settings must not be chosen for favorable holdout results.
 
-- Weber et al. (2019), *Anti-Money Laundering in Bitcoin: Experimenting with Graph Convolutional Networks for Financial Forensics.* https://arxiv.org/abs/1908.02591
-- PyG `SAGEConv` documentation: https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.conv.SAGEConv.html
+## AI assistance
+
+AI tools assisted with design, code generation, documentation, formatting and
+audit support. The training notebook was executed on real data in Colab and
+its measured outputs are preserved. Backend tests, the executed UI notebook, browser screenshots, and real-feature
+parity results are retained as evidence. Review all
+content and follow course disclosure requirements.

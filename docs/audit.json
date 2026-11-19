@@ -1,0 +1,31 @@
+{
+  "source_zip_sha256": "2e18c5403a84b7d80cfc58d360d32b818ce689cbea5fdcc202e107793eeb1d7a",
+  "source_notebook_sha256": "d8d12366b6cb8ff1ed957e49ec00994536d46e57924a0c53b0433e5e41e38bb2",
+  "metric_rows": 180,
+  "saved_prediction_rows_checked": 200040,
+  "known_transactions_per_combination": 16670,
+  "recomputation": [
+    {
+      "model": "XGBoost",
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "metrics_recomputed": "passed"
+    },
+    {
+      "model": "MLP",
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "metrics_recomputed": "passed"
+    },
+    {
+      "model": "GraphSAGE",
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "metrics_recomputed": "passed"
+    }
+  ],
+  "notebook_saved_errors": [],
+  "full_training_rerun_here": false,
+  "raw_features_available_here": false,
+  "seed_count": 1
+}

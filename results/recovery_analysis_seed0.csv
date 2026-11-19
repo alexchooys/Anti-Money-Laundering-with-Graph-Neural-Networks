@@ -1,0 +1,13 @@
+model,policy,pre_shift_mean_F1,recovery_F1_target,eligible_consecutive_pairs,recovery_onset_step,recovery_confirmation_step,steps_to_confirmation_after_43,status
+GraphSAGE,expanding,0.7063491765089447,0.6357142588580502,2,,,,Not observed by step 49
+GraphSAGE,frozen,0.6439752677639713,0.5795777409875742,2,,,,Not observed by step 49
+GraphSAGE,recency,0.7072779903271451,0.6365501912944306,2,,,,Not observed by step 49
+GraphSAGE,rolling,0.7014664057710791,0.6313197651939713,2,,,,Not observed by step 49
+MLP,expanding,0.809142774973824,0.7282284974764417,2,,,,Not observed by step 49
+MLP,frozen,0.6189043698857064,0.5570139328971357,2,,,,Not observed by step 49
+MLP,recency,0.8106890093265349,0.7296201083938814,2,,,,Not observed by step 49
+MLP,rolling,0.8018493691772484,0.7216644322595236,2,,,,Not observed by step 49
+XGBoost,expanding,0.8148535317748056,0.7333681785973251,2,,,,Not observed by step 49
+XGBoost,frozen,0.7268024850016485,0.6541222365014836,2,,,,Not observed by step 49
+XGBoost,recency,0.883361232890958,0.7950251096018622,2,,,,Not observed by step 49
+XGBoost,rolling,0.8797474011046507,0.7917726609941856,2,,,,Not observed by step 49

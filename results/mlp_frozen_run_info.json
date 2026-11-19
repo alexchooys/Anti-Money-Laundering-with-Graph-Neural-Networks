@@ -1,0 +1,14 @@
+{
+  "model": "MLP",
+  "policy": "frozen",
+  "seed": 0,
+  "selected_epoch": 145,
+  "epochs_executed": 170,
+  "validation_AP": 0.8799923410863006,
+  "threshold": 0.7999999999999999,
+  "training_with_validation_seconds": 1.672265427000184,
+  "trainable_parameters": 10241,
+  "positive_class_weight": 8.107989167230873,
+  "gpu": "Tesla T4",
+  "torch_version": "2.14.1+cu130"
+}
