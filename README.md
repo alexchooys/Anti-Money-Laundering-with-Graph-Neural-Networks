@@ -5,7 +5,7 @@ frozen, expanding-history, rolling-window and recency-weighted policies on
 original Elliptic Bitcoin transaction snapshots. The interface supports
 saved-experiment inspection and **live frozen-XGBoost inference**.
 
-Author: **Alex (GitHub: alexchooys)**, University of Florida, Applied Data Science.
+Author: **Yuanseng Choo (GitHub: alexchooys)**, University of Florida, Applied Data Science.
 Contact: https://github.com/alexchooys
 
 ## What is actually complete
