@@ -1,4 +1,6 @@
-# Lightweight working interface and saved-results evaluation
+# Deliverable 3: refined FastAPI interface, audited evaluation and plots
+# CSV validation/caching use the Python standard library; no multipart dependency.
+# Optional native prediction: install requirements-native.txt
 numpy>=1.26,<3
 pandas>=2.2,<3
 scikit-learn>=1.7,<2

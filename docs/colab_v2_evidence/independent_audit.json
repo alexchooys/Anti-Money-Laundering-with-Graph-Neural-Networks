@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "metric_rows": 540,
+  "prediction_rows": 600120,
+  "seed_count": 3,
+  "notebook_cells": 85,
+  "saved_notebook_errors": [],
+  "recovery_observed": 0,
+  "recovery_total": 36,
+  "full_training_repeated_here": false,
+  "records": [
+    {
+      "model": "XGBoost",
+      "seed": 0,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.7,
+      "selected_epoch": null,
+      "frozen_sha256": "15be650df3457ac6a869aaae5804dd27d571651d0f837588fd099071f6806a3c",
+      "adaptive_sha256": "0995544a69b9b00f300b07c99270a41d5b5aecacdeff610b0cb26412c8df9a57"
+    },
+    {
+      "model": "XGBoost",
+      "seed": 1,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.7,
+      "selected_epoch": null,
+      "frozen_sha256": "cbec536fcbd042fba4db2607a45608ebb38274d7867b7fdf4cc689fbbe48b06d",
+      "adaptive_sha256": "37c372acf7c2ee3c0d41e16e31de4b26fb9b637340f717e8799c4764f7ca4808"
+    },
+    {
+      "model": "XGBoost",
+      "seed": 2,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.7,
+      "selected_epoch": null,
+      "frozen_sha256": "ddd4c8400b719f0f0bd590f6004c083513cc57bb7fffb514fe9f68e81b4b69fc",
+      "adaptive_sha256": "39e82c67dbdc829ee9bc241407d17ef47c49110a7b20c3ee59cd6155368e1c31"
+    },
+    {
+      "model": "MLP",
+      "seed": 0,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.7999999999999999,
+      "selected_epoch": 145,
+      "frozen_sha256": "e1a629f6bdf598604daa73c79b88db03259c68551c41a6ceb216ab801e085b00",
+      "adaptive_sha256": "c9829a424423b25353dfa27a5ba0941896fa1e0c478601a5fb241b48dae38c4d"
+    },
+    {
+      "model": "MLP",
+      "seed": 1,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.8,
+      "selected_epoch": 200,
+      "frozen_sha256": "7750363e8d6879c72b35702a3ed9fe31fa4d69c724f23eb509acf037b64a19ce",
+      "adaptive_sha256": "f4db2ae4084870694cabf5f374523649f8359b35f66995ea33750394e67103f2"
+    },
+    {
+      "model": "MLP",
+      "seed": 2,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.7,
+      "selected_epoch": 101,
+      "frozen_sha256": "d8901556a5ab163b64bb3dcae7e54eb3ce2f8b1a732228bb85cffdd87ac3cedb",
+      "adaptive_sha256": "a0d182286a7ab3621929ada5b3f80a26e74acdbd1f551eebff4e337cf4cf505e"
+    },
+    {
+      "model": "GraphSAGE",
+      "seed": 0,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.85,
+      "selected_epoch": 73,
+      "frozen_sha256": "10c9c732c208277a2f394f31a5c0ab994494f1a9584e12134ce9378468aa04a1",
+      "adaptive_sha256": "bb45fb887aeeb431e789d9fc7cd57f2a189745f7406ebd66da44d042c7c2153c"
+    },
+    {
+      "model": "GraphSAGE",
+      "seed": 1,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.9,
+      "selected_epoch": 199,
+      "frozen_sha256": "9daf1debb1b3b72a54007bb6c0fb685ea986a1f96a93546e0b2e5f8471f665ab",
+      "adaptive_sha256": "735b098d16ca99c18bc2bd6048d609187341c2cf6819149d2d38857b6d57e119"
+    },
+    {
+      "model": "GraphSAGE",
+      "seed": 2,
+      "prediction_rows": 66680,
+      "metric_rows": 60,
+      "threshold": 0.85,
+      "selected_epoch": 60,
+      "frozen_sha256": "60ebdb1059da8fb245fa82f438f46f205650e19b4a5ba1eaec9be8e5db12573e",
+      "adaptive_sha256": "7a187729cf8e2c6e0fca189dcbc6bae7d456f28ffee3e0c387892fe965f58f7d"
+    }
+  ]
+}

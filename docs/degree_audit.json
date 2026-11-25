@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "diagnostic_rows_recomputed": 216,
+  "degree_nodes": 203769,
+  "incoming_degree_sum": 234355,
+  "raw_edge_to_degree_computation": "executed in Colab; degree-map joins and metrics recomputed here"
+}

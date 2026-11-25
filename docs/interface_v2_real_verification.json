@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "actual_rows": 50,
+  "max_native_vs_saved_difference": 2.9347991925554595e-08,
+  "max_portable_vs_native_difference": 5.973785044410818e-08,
+  "live_output": {
+    "mode": "live frozen XGBoost, seed 0",
+    "row": 1,
+    "score": 0.020135866478085518,
+    "threshold": 0.7,
+    "predicted_label": 0,
+    "display_label": "below review threshold",
+    "input_features": 93,
+    "engine": "native XGBoost CPU inference",
+    "note": "Uncalibrated score; no legal determination or automatic sanctions."
+  }
+}

@@ -1,0 +1,14 @@
+flowchart TD
+ A[Original Elliptic CSVs] --> B[Validate schema and transaction IDs]
+ B --> C[Historical train and validation partitions]
+ C --> D[Initial models for each seed]
+ C --> E[Past-only adaptive refits]
+ D --> F[Predictions and validation settings]
+ E --> F
+ F --> G[Prediction audit and three-seed summaries]
+ G --> H[Cached comparison and replay interface]
+ I[JSON or CSV features] --> J[Validate and align 93 columns]
+ J --> K[Frozen XGBoost inference]
+ K --> L[Score and CSV export]
+ H --> M[Human review and interpretation]
+ L --> M

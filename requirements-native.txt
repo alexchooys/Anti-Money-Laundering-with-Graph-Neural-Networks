@@ -1,0 +1,2 @@
+# Optional native inference engine; no GPU needed for the UI.
+xgboost>=3,<4
